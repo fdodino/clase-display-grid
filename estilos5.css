@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+  background-color: cadetblue;
+  font-family: "Source Sans Pro", sans-serif;
+  color: white;
+}
+
+main {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(2, 100px);
+}
+
+div:nth-child(-n+6) {
+  background-color: indianred;
+}
+div {
+  background-color: darkslateblue;
+}

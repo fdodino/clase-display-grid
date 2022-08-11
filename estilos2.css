@@ -1,0 +1,37 @@
+/* Configuración para que no haya paddings ni margins */
+/* Activar la opción grid para mostrar los grid line numbers */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  color: white;
+}
+
+.main {
+  /* Configuramos el ancho y alto total del browser */
+  width: 100vw;
+  height: 100vh;
+
+}
+
+/* temporal */
+div {
+  height: 100px;
+  width: 100%;
+}
+
+.header {
+  background-color: darkturquoise;
+}
+
+.sidebar {
+  background-color: orange;
+}
+
+.content {
+  background-color: yellowgreen;
+}
+
+.footer {
+  background-color: slateblue;
+}

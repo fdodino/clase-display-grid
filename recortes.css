@@ -1,0 +1,230 @@
+/* Paso 1: hay que agregar esta definición */
+/* y borrar del cuadrado height, width y margin */
+.main {
+  gap: 0.5rem;
+  display: grid;
+
+  grid-template-columns: repeat(3, 200px); /* probar con 100px 2rem 50vw */
+  grid-template-rows: repeat(5, 100px); /* probar con 3 */
+}
+
+/* ====================================================================== */
+/* Paso 2 : un layout
+
+   header
+   sidebar content
+   footer
+
+   grid-template-rows y columns lo armamos en base a porcentajes
+   aparecen grid-row, grid-column para cada elemento
+*/
+
+.main {
+  /* Configuramos el ancho y alto total del browser */
+  width: 100vw;
+  height: 100vh;
+
+  /* Configuraciones de Grid */
+  display: grid;
+
+  grid-template-rows: 20% 60% 20%;
+  grid-template-columns: 20% 80%;
+}
+
+.header {
+  background-color: darkturquoise;
+  grid-row: 1 / 2;
+  grid-column: 1 / -1;
+  /* hablar la diferencia entre 4 y -1 */
+}
+
+.sidebar {
+  background-color: orange;
+  grid-row: 2 / 3;
+  grid-column: 1 / 1;
+}
+
+.content {
+  background-color: yellowgreen;
+  grid-row: 2 / 3;
+  grid-column: 2 / -1;
+}
+
+.footer {
+  background-color: slateblue;
+  grid-row: 3 / 4;
+  grid-column: 1 / -1;
+}
+
+/* ====================================================================== */
+/* Paso 3:  */
+/* El mismo ejemplo pero usando nombres de grid lines, usamos los corchetes dentro de grid-template-rows y columns */
+
+.main {
+  /* Configuramos el ancho y alto total del browser */
+  width: 100vw;
+  height: 100vh;
+
+  /* Configuraciones de Grid */
+  display: grid;
+
+  grid-template-rows: 
+    [header-start]
+    20%
+    [header-end]
+    60%
+    [footer-start]
+    20%
+    [footer-end];
+  grid-template-columns: 
+    [sidebar-start]
+    25%
+    [sidebar-end content-start]
+    75%
+    [content-end];
+}
+
+
+.header {
+  background-color: darkturquoise;
+  grid-row: header-start / header-end;
+  grid-column: sidebar-start / content-end;
+}
+
+.sidebar {
+  background-color: orange;
+  grid-row: header-end / footer-start;
+  grid-column: sidebar-start / sidebar-end;
+}
+
+.content {
+  background-color: yellowgreen;
+  grid-row: header-end / footer-start;
+  grid-column: content-start / content-end;
+}
+
+.footer {
+  background-color: slateblue;
+  grid-row: footer-start / footer-end;
+  grid-column: sidebar-start / content-end;
+}
+
+/* ====================================================================== */
+/* Paso 4:  */
+/* El mismo ejemplo pero usando fracciones */
+.main {
+  /* Al utilizar fracciones no tenemos que recalcular % */
+  grid-template-rows: 
+    [header-start]
+    1fr
+    [header-end]
+    3fr /* calc(60% - 1em porque son 4 grid lines de 0.25em) */
+    [footer-start]
+    1fr
+    [footer-end];
+  grid-template-columns: 
+    [sidebar-start]
+    1fr /* calc(25% - 0.75em) -> son 3 grid lines de separación */
+    [sidebar-end content-start]
+    3fr /* 
+    [content-end];
+}
+
+/* ====================================================================== */
+/* Paso 5:  */
+/* El mismo ejemplo pero definiendo la grilla más de acuerdo a nuestro modelo mental */
+
+.main {
+  /* lo definimos en el template de las áreas */
+  grid-template-areas:
+    "header header"
+    "sidebar content"
+    "footer footer"
+}
+
+/* y hay que eliminar grid-row y grid-column, y reemplazarla por grid-area */
+.header {
+  grid-area: header;
+}
+
+.sidebar {
+  grid-area: sidebar;
+}
+
+.content {
+  grid-area: content;
+}
+
+.footer {
+  grid-area: footer;
+}
+
+/* ====================================================================== */
+/* Paso 6:  */
+/* El mismo ejemplo y mostramos que la convención de nombres en base al área se respeta
+  Volamos la definición de grid-area en cada elemento y hacemos
+*/
+.header {
+  grid-row: header-start / header-end;
+  grid-column: sidebar-start / content-end;
+}
+
+.sidebar {
+  grid-row: header-end / footer-start;
+  grid-column: sidebar-start / sidebar-end;
+}
+
+.content {
+  grid-row: header-end / footer-start;
+  grid-column: content-start / content-end;
+}
+
+.footer {
+  grid-row: footer-start / footer-end;
+  grid-column: sidebar-start / content-end;
+}
+
+/* ====================================================================== */
+/* Paso 7:  */
+/* Es otro distinto, vamos a ejemplo3.html, son 3 divs que explican el contenido
+/* 1- Agregar muchas palabras al tercer div, y cambiar min-content por max-content 
+   2- Cambiamos a 100vw como max del tercero y ponemos esas mismas palabras al segundo div, eso agranda el segundo div y 
+      además pone hasta lo que falta al 3er div
+*/
+
+/* ====================================================================== */
+/* Paso 8:  */
+/* ejemplo4.html que muestra la diferencia entre autofill y autofit
+/* El primero busca respetar el primer hueco posible, el segundo acomoda el contenido de manera que no haya huecos
+   Solo se ve bien cuando agrandás bien la página
+*/
+
+/* ====================================================================== */
+/* Paso 9:  */
+/* ejemplo5.html que muestra cómo se agregan elementos que salen del contenedor grid */
+/* ojo que es main y no .main */
+main {  
+  grid-auto-flow: row; /* podemos probar también column para ver cómo se ve */
+  grid-auto-rows: 100px; /* para los elementos que se exceden de la grilla original */
+  grid-auto-columns: 100px;
+}
+
+/* podemos primero agrandar el contenido de alguno de los elementos */
+/* luego vamos jugando a agrandar grid-auto-rows o grid-auto-columns y variando el grid-auto-flow */
+
+/* ====================================================================== */
+/* Paso 10 */
+/* Grid packing modes en ejemplo6.html */
+/* se juega con el row dense y column dense para ver cómo va llenando los espacios, hay que explicar 
+   que dos divs tienen una ubicación fija */
+/* originalmente se piensa de 3 x 2 */
+/* contar el span 2 */
+
+/* Paso 11 */
+/* Alineación y justificación, ejemplo7.html */
+/* align-items -> eje vertical, alineación del eje block en homenaje al display block */
+/* lo mismo align-self, align-content mostrarlo cómo queda */
+/* start, center, end, stretch, el resto que las vean */
+
+/* justify-items -> eje vertical, alineación del eje block en homenaje al display block */
+/* lo mismo justify-self, justify-content */
